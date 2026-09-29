@@ -149,29 +149,22 @@
         // Fungsi untuk membuat Awesome Icon berdasarkan NAMA_UNSUR
         function getToponimiIcon(namaUnsur) {
             var iconName = 'geo-alt-fill'; // default icon
-            var markerColor = 'blue';       // default color
+            var markerColor = 'green';     // default color
 
-            // Pengkondisian berdasarkan NAMA_UNSUR (Silakan sesuaikan nilai string dan ikon sesuai data Anda)
-            if (namaUnsur === "Pemerintahan" || namaUnsur === "Kantor Camat") {
-                iconName = 'building';
+            if (namaUnsur === "Gunung") {
+                iconName = 'triangle-fill';
                 markerColor = 'red';
-            } else if (namaUnsur === "Pendidikan" || namaUnsur === "Sekolah") {
-                iconName = 'mortarboard-fill';
-                markerColor = 'green';
-            } else if (namaUnsur === "Kesehatan" || namaUnsur === "Puskesmas" || namaUnsur === "Rumah Sakit") {
-                iconName = 'hospital-fill';
+            } else if (namaUnsur === "Tanjung") {
+                iconName = 'compass-fill';
                 markerColor = 'orange';
-            } else if (namaUnsur === "Sarana Ibadah" || namaUnsur === "Gereja" || namaUnsur === "Masjid") {
-                iconName = 'house-heart-fill';
-                markerColor = 'purple';
-            } else if (namaUnsur === "Permukiman") {
-                iconName = 'house-fill';
-                markerColor = 'cadetblue';
+            } else if (namaUnsur === "Teluk") {
+                iconName = 'water';
+                markerColor = 'blue';
             }
 
             return L.AwesomeMarkers.icon({
                 icon: iconName,
-                prefix: 'bi', // Menggunakan Bootstrap Icons (bi)
+                prefix: 'bi',
                 markerColor: markerColor,
                 iconColor: 'white'
             });
@@ -275,22 +268,22 @@
         var jumlah_penduduk = L.geoJSON(null, {
             pane: 'jumlah_penduduk',
             style: function (feature) {
-                if (feature.properties.Penduduk <= 11999) {
+                if (feature.properties.Penduduk <= 12000) {
                     return {
                         opacity: 1,
                         color: 'black',
                         weight: 1.0,
-                        fillOpacity: 0.7,
-                        fillColor: '#000ff0'
+                        fillOpacity: 0.8,
+                        fillColor: '#ffffb2'
                     }
                 }
-                if (feature.properties.Penduduk > 12000 && feature.properties.Penduduk <= 23999) {
+                if (feature.properties.Penduduk > 12000 && feature.properties.Penduduk <= 24000) {
                     return {
                         opacity: 1,
                         color: 'black',
                         weight: 1.0,
-                        fillOpacity: 0.7,
-                        fillColor: '#fd8d0c'
+                        fillOpacity: 0.8,
+                        fillColor: '#DDA0DD'
                     }
                 }
                 if (feature.properties.Penduduk > 24000) {
@@ -298,8 +291,8 @@
                         opacity: 1,
                         color: 'black',
                         weight: 1.0,
-                        fillOpacity: 0.7,
-                        fillColor: '#bd0026'
+                        fillOpacity: 0.8,
+                        fillColor: '#A67B5B'
                     }
                 }
             },
@@ -343,15 +336,21 @@
         };
 
         var overlayMaps = {
-            "Toponimi": toponimi,
+            ["Toponimi:<br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 8px; margin-left: 20px; font-size: 13px; margin-top: 2px;'><i class='bi bi-triangle-fill' style='color: red;'></i> Gunung</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 8px; margin-left: 20px; font-size: 13px; margin-top: 2px;'><i class='bi bi-compass-fill' style='color: #fd8d0c;'></i> Tanjung</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 8px; margin-left: 20px; font-size: 13px; margin-top: 2px;'><i class='bi bi-water' style='color: #000ff0;'></i> Teluk</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 8px; margin-left: 20px; font-size: 13px; margin-top: 2px;'><i class='bi bi-geo-alt-fill' style='color: green;'></i> Toponimi Lain</span>"]: toponimi,
+
             ["Jalan:<br>" +
-                "<span style='display: inline-flex; align-items: center; gap: 6px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><svg width='20' height='6' style='vertical-align:middle;'><line x1='0' y1='3' x2='20' y2='3' stroke='red' stroke-width='3'/></svg> Jalan Propinsi</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 6px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><svg width='20' height='6' style='vertical-align:middle;'><line x1='0' y1='3' x2='20' y2='3' stroke='red' stroke-width='3'/></svg> Jalan Provinsi</span><br>" +
                 "<span style='display: inline-flex; align-items: center; gap: 6px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><svg width='20' height='6' style='vertical-align:middle;'><line x1='0' y1='3' x2='20' y2='3' stroke='red' stroke-width='1.5' stroke-dasharray='6,3'/></svg> Jalan Kabupaten</span><br>" +
                 "<span style='display: inline-flex; align-items: center; gap: 6px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><svg width='20' height='6' style='vertical-align:middle;'><line x1='0' y1='3' x2='20' y2='3' stroke='red' stroke-width='0.8' stroke-dasharray='2,2'/></svg> Jalan Lain</span>"]: jalan,
+
             ["Jumlah Penduduk:<br>" +
-                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #000ff0; border: 1px solid #333;'></span> &le; 11.999</span><br>" +
-                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #fd8d0c; border: 1px solid #333;'></span> 12.000 - 23.999</span><br>" +
-                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #bd0026; border: 1px solid #333;'></span> &gt; 24.000</span>"]: jumlah_penduduk,
+                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #ffffb2; border: 1px solid #333;'></span> &le; 12.000 Jiwa</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #DDA0DD; border: 1px solid #333;'></span> 12.001 - 24.000 Jiwa</span><br>" +
+                "<span style='display: inline-flex; align-items: center; gap: 5px; margin-left: 20px; font-size: 12px; margin-top: 2px;'><span style='display: inline-block; width: 14px; height: 14px; background: #A67B5B; border: 1px solid #333;'></span> &gt; 24.000 Jiwa</span>"]: jumlah_penduduk,
         };
 
         var controllayer = L.control.layers(baseMaps, overlayMaps, { collapsed: false });
